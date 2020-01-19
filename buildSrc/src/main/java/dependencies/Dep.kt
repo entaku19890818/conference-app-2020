@@ -164,6 +164,8 @@ object Dep {
         val okio = "com.squareup.okio:okio:1.14.0"
     }
 
+    val liveDataKtx = "com.shopify:livedata-ktx:2.0.1"
+
     val liveEvent = "com.github.hadilq.liveevent:liveevent:1.0.1"
 
     object LeakCanary {

@@ -7,13 +7,21 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import io.github.droidkaigi.confsched2020.announcement.ui.subscribeAnnouncementTopic
 import io.github.droidkaigi.confsched2020.di.AppComponent
 import io.github.droidkaigi.confsched2020.di.AppComponentHolder
 import io.github.droidkaigi.confsched2020.di.createAppComponent
+import io.github.droidkaigi.confsched2020.ext.changedForever
+import io.github.droidkaigi.confsched2020.model.SystemProperty
+import io.github.droidkaigi.confsched2020.system.store.SystemStore
 import timber.log.LogcatTree
 import timber.log.Timber
+import javax.inject.Inject
 
 open class App : DaggerApplication(), AppComponentHolder {
+    @Inject
+    lateinit var systemStore: SystemStore
+
     override val appComponent: AppComponent by lazy {
         createAppComponent()
     }
@@ -27,8 +35,14 @@ open class App : DaggerApplication(), AppComponentHolder {
         setupTimber()
         setupFirestore()
         setupNightMode()
+        systemStore.systemProperty.changedForever {
+            subscribeAnnouncementTopic(it)
+        }
     }
 
+    open fun subscribeAnnouncementTopic(systemProperty: SystemProperty) {
+        subscribeAnnouncementTopic(systemProperty.lang)
+    }
     private fun setupTimber() {
         Timber.plant(LogcatTree())
     }
