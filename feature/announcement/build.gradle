@@ -12,7 +12,7 @@ dependencies {
     implementation project(':feature:system')
 
     implementation project(":data:repository")
-
+    implementation project(":feature:notification")
     implementation project(':corecomponent:androidcomponent')
     implementation project(':ext:log')
 

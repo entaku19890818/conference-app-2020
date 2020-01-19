@@ -22,10 +22,10 @@ class ManageTopicSubscriptionWorker(
     context: Context,
     parameters: WorkerParameters
 ) : Worker(context, parameters) {
-    override fun doWork(): androidx.work.Result {
+    override fun doWork(): Result {
         try {
             if (!inputData.isValid) {
-                return androidx.work.Result.failure()
+                return Result.failure()
             }
 
             val topicsToBeSubscribed =
@@ -54,10 +54,10 @@ class ManageTopicSubscriptionWorker(
         } catch (th: Throwable) {
             Timber.error(th)
 
-            return androidx.work.Result.retry()
+            return Result.retry()
         }
 
-        return androidx.work.Result.success()
+        return Result.success()
     }
 
     private val Data.isValid: Boolean

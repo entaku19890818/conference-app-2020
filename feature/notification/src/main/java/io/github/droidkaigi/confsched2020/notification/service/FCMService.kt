@@ -76,7 +76,7 @@ class FCMService : FirebaseMessagingService() {
         if (notification.link != null) {
             val intent = Intent(Intent.ACTION_VIEW).setData(notification.link)
 
-            if (packageManager.queryIntentAllActivities(intent).isNotEmpty()) {
+            if (packageManager. queryIntentAllActivities(intent).isNotEmpty()) {
                 return PendingIntent.getActivity(this, 0, intent, 0, options)
             }
         }
